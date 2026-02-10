@@ -7,7 +7,9 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    application
+    id("application")
+    id("org.openjfx.javafxplugin").version("0.1.0")
+    id("com.gradleup.shadow").version("9.3.1")
 }
 
 repositories {
@@ -21,6 +23,18 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    //このruntimeOnly群はクロスプラットフォーム対応のjarを作るためのものです。
+    //不必要なものは消すとjarファイルのサイズを小さくできます。
+    runtimeOnly("org.openjfx:javafx-base:$javafx.version:win")
+    runtimeOnly("org.openjfx:javafx-base:$javafx.version:linux")
+    runtimeOnly("org.openjfx:javafx-base:$javafx.version:mac")
+    runtimeOnly("org.openjfx:javafx-controls:$javafx.version:win")
+    runtimeOnly("org.openjfx:javafx-controls:$javafx.version:linux")
+    runtimeOnly("org.openjfx:javafx-controls:$javafx.version:mac")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafx.version:win")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafx.version:linux")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafx.version:mac")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -32,5 +46,10 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "dev.haruki7049.javafx.App"
+}
+
+javafx {
+    version = "21.0.10"
+    modules = listOf("javafx.controls")
 }
