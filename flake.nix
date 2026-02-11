@@ -16,14 +16,14 @@
       perSystem =
         { pkgs, ... }:
         let
-          jdkWithFX = pkgs.openjdk.override { enableJavaFX = true; };
+          jdkWithFX = pkgs.jdk25.override { enableJavaFX = true; };
         in
         {
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = [
               # Compiler, VM & Builder
               jdkWithFX # JDK
-              pkgs.gradle_8 # Gradle
+              pkgs.gradle_9 # Gradle
 
               # LSP
               pkgs.nil # Nix LSP
